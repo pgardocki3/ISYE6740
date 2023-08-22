@@ -1,0 +1,177 @@
+\documentclass[twoside,10pt]{article}
+\usepackage{amsmath,amsfonts,amsthm,fullpage}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+
+
+\begin{document}
+
+\title{ISYE 6740 Summer 2023\\ Homework 1 (100 points)}
+%\author{Yao Xie}
+\date{}
+
+\maketitle
+
+\vspace{-.5in}
+
+In this homework, the superscript of a symbol $\text x^i$ denotes the index of samples (not raising to $i$th power); this is a convention in this class. Please follow the homework submission instructions in the syllabus.
+
+\section{Concept questions [25 points]}
+
+Please provide a brief answer to each question.
+
+\begin{enumerate}
+
+\item (5 points) What's the main difference between supervised and unsupervised learning? Give one benefit and drawback for supervised and unsupervised learning, respectively. 
+
+\item (5 points) Will different initializations for k-means lead to different results?
+
+\item (5 points) Give a short proof (can be in words but using correct logic) of why k-means algorithm will converge in a finite number of iterations.
+
+\item (5 points) What is the main difference between k-means and generalized k-means algorithm? Explain how the choice of similarity/dissimilarity/distance will impact the result. 
+
+\item (5 points) Consider the following simple graph
+\begin{center}
+\includegraphics[width = 0.2\textwidth]{plot}
+\end{center}
+
+Write down the graph Laplacian matrix and find the eigenvectors associated with the zero eigenvalues. Explain how you find out the number of disconnected clusters in the graph and identify these disconnected clusters using these eigenvectors.
+
+\end{enumerate}
+
+\section{Math of k-means clustering [5 points]}
+ Given $m$ data points $\text x^i$, $i=1,\dots, m$, $K$-means clustering algorithm groups them into $k$ clusters by minimizing the distortion function over $\{ r^{ij}, \mu^j \}$
+\begin{equation}
+J =\sum_{i=1}^m\sum_{j=1}^k r^{ij} \|\text x^i-\mu^j\|^2,
+\label{J_def}
+\end{equation}
+where $r^{ij}=1$ if $\text x^i$ belongs to the $j$-th cluster and $r^{ij}=0$ otherwise.
+
+\begin{enumerate}
+
+\item (3 points) Derive mathematically that using the squared Euclidean distance $\|\text x^i-\mu^j\|^2$ as the dissimilarity function, the centroid that minimizes the distortion function $J$  for given assignments $r^{ij}$ are given by
+   $$\mu^j=\frac{\sum_i r^{ij} \text x^i}{\sum_i r^{ij}}.$$
+   That is, $\mu^j$ is the center of $j$-th cluster.  \\
+   Hint: You may start by taking the partial derivative of $J$ with respect to $\mu^j$, with $r^{ij}$ fixed.
+   
+   
+\item (2 points) Derive mathematically what should be the assignment variables $r^{ij}$ be to minimize the distortion function $J$, when the centroids $\mu^j$ are fixed.
+
+\end{enumerate}
+
+
+
+\section{Image compression using clustering [20 points]}
+
+In this programming assignment, you are going to apply clustering algorithms for image compression. This can also be viewed as an example of segmenting colors in an automated fashion using $K$-means clustering.
+
+Your task is to implement \emph{$K$-means} for this purpose.  {\bf It is required you implement the algorithms yourself rather than calling k-means from a package. However, it is ok to use standard packages for supplementary tasks, e.g., file i/o, linear algebra, and visualization.} 
+
+
+\subsubsection*{Formatting instruction}
+
+As a starting point, we suggest the following input/output signature for your k-means algorithm.\\
+
+\textbf{Input}
+\begin{itemize}
+  \item \texttt{pixels}: the input image representation. Each row contains one data point (pixel). For image dataset, it contains 3 columns, each column corresponding to Red, Green, and Blue components. Each component has an integer value between 0 and 255.
+  \item \texttt{k}: the number of desired clusters.
+\end{itemize}
+
+\textbf{Output}
+\begin{itemize}
+  \item \texttt{class}: cluster assignment of each data point in pixels. The assignment should be 1, 2, 3, etc. For $k = 5$, for example, each cell of the class should be either 1, 2, 3, 4, or 5. The output should be a column vector with \texttt{size(pixels, 1)} elements.
+  \item \texttt{centroid}: location of $k$ centroids (or representatives) in your result. With images, each centroid corresponds to the representative color of each cluster. The output should be a matrix with $K$ rows and 3 columns. The range of values should be [0, 255], possibly floating point numbers.
+\end{itemize}
+
+\subsubsection*{Hand-in}
+Both of your code and report will be evaluated. Upload the code as a zip file, and the report as a pdf, separately from the zip file. In your report, answer the following questions:
+
+\begin{enumerate}
+ 
+\item  (15 points) Use $k$-means with squared-$\ell_2$ norm as a metric for \texttt{hestain.bmp} and \texttt{football.bmp} and also choose a third picture of your own to work on. We recommend the size of $320 \times 240$ or smaller. Run your $k$-means implementation with these pictures, with several different $k = 2, 3, 4, 5, 6$. 
+  
+{\it Comment:}  \texttt{hestain.png} is an image of tissue stained with hematoxylin and eosin (H\&E). This staining method helps pathologists distinguish between tissue types that are stained blue-purple and pink. Then the algorithm will segment the image into k regions in the RGB color space. For each pixel in the input image, the algorithm returns a label corresponding to a cluster.
+  
+Run your $k$-means implementation (with squared-$\ell_2$ norm) with random initialization centroids. Please try multiple times and report the best one for each $k$ (in terms of image quality).
+  
+\item (5 points) Please  report how long it takes to converge for each $k$ (report the number of iterations and elapsed time in seconds).
+
+\item (5 points) Describe a method to find the best $k$. What is your best $k$?
+
+\end{enumerate}
+  
+
+
+\subsubsection*{Note}
+\begin{itemize}
+  \item You may see errors caused by empty clusters when you use too large $k$. Your implementation should treat this exception as well. That is, do not terminate even if you have an empty cluster, but automatically decrement to a smaller number of clusters.
+
+  \item We recommend you test your code with several different pictures so that you can detect some problems that might happen occasionally. 
+
+  \item If we detect plagiarism from any other student's code or from the web, you will not be eligible for any credit for the entire homework, not just for this problem.
+\end{itemize}
+
+\section{MNIST Dataset clustering [20 points]}
+
+
+This question is to compare different classifiers and their performance for multi-class classifications on the complete MNIST dataset at \url{http://yann.lecun.com/exdb/mnist/}. You can find the data file \textbf{mnist\_10digits.mat} in the homework folder. The MNIST database of handwritten digits has a training set of 60,000 examples and a test set of 10,000 examples. Use the number of clusters $K = 10$.
+
+
+
+We suggest you ``standardize'' the features (pixels in this case) by dividing the values of the features by 255 (thus mapping the range of the features from [0, 255] to [0, 1]).
+
+We are going to use  {\it purity} score as a performance metric: each cluster is assigned to the class which is most frequent in the cluster, and then the accuracy of this assignment is measured by the number of correlated assigned samples and divided by the size of the cluster: 
+\[
+\mbox{purity}_i = \frac{\mbox{corrected assigned samples}_i}{\mbox{size of cluster}_i}
+\]
+for the cluster $i$. 
+
+\begin{enumerate}
+
+\item (10 points) Use the squared-$\ell_2$ norm as a metric for clustering (you may base it on the code you had for Question 2 and make necessary changes.) 
+%
+Report the {\it purity} score for each cluster. 
+
+\item (10 points) Now try your $k$-means with the Manhattan distance (or $\ell_1$ distance) and repeat the same steps in Part (1). Please note that the assignment of data points should be based on the Manhattan distance, and the cluster centroid (by minimizing the sum of deviance -- as a result of using the Manhattan distance) will be taken as the ``median'' of each cluster. Report the {\it purity} score for each cluster. Comment on which metric gives the better result?
+
+\end{enumerate}
+
+
+
+
+
+
+
+\section{Political blogs dataset [30 points]}
+
+We will study a political blog dataset first compiled for the paper Lada A. Adamic and Natalie Glance, ``The political blogosphere and the 2004 US Election'', in Proceedings of the WWW-2005 Workshop on the Weblogging Ecosystem (2005). It is assumed that blog-site with the same political orientation are more likely to link to each other, thus, forming a ``community'' or ``cluster'' in a graph. In this question, we will see whether or not this hypothesis is likely to be true based on the data.
+\begin{itemize}
+
+\item The dataset \textsf{nodes.txt} contains a graph with $n = 1490$ vertices (``nodes'') corresponding to political blogs. 
+
+\item The dataset \textsf{edges.txt} contains edges between the vertices. You may remove isolated nodes (nodes that are not connected to any other nodes) in the pre-processing. 
+
+\end{itemize}
+
+We will treat the network as an undirected graph; thus, when constructing the adjacency matrix, make it symmetrical by, e.g., set the entry in the adjacency matrix to be one whether there is an edge between the two nodes (in either direction). 
+
+In addition, each vertex has a 0-1 label (in the 3rd column of the data file) corresponding to the true political orientation of that blog. We will consider this as the true label and check whether spectral clustering will cluster nodes with the same political orientation as possible. 
+
+\begin{enumerate}
+
+\item (15 points) Use spectral clustering to find the $k = 2, 5, 10, 25$ clusters in the network of political blogs (each node is a blog, and their edges are defined in the file \textsf{edges.txt}). Find majority labels in each cluster for different $k$ values, respectively. For example, if there are $k = 2$ clusters, and their labels are $\{0, 1, 1, 1\}$ and $\{0, 0, 1\}$ then the majority label for the first cluster is 1 and for the second cluster is 0. {\bf It is required you implement the algorithms yourself rather than calling from a package.} 
+
+Now compare the majority label with the individual labels in each cluster, and report the {\it mismatch rate} for each cluster, when $k = 2, 5, 10, 25$. For instance, in the example above, the mismatch rate for the first cluster is 1/4 (only the first node differs from the majority), and the second cluster is 1/3. 
+
+\item (15  points) Tune your $k$ and find the number of clusters to achieve a reasonably small {\it mismatch rate}. Please explain how you tune $k$ and what is the achieved mismatch rate. Please explain intuitively what this result tells about the network community structure.
+
+\end{enumerate}
+
+
+
+
+\end{document}
