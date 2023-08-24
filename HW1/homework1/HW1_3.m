@@ -1,20 +1,44 @@
 clear;
 close all;
 
-pixels_m = imread('data/football.bmp');
-pixels = reshape(pixels_m, 255440,3);
+pixels_og = imread('data/football.bmp');
+% pixels_og = imread('data/hestain.bmp');
+pixels = reshape(pixels_og, [],3);
 
-k = 5;
+k = 6;
 
 % MATLAB Version
-%class = imsegkmeans(pixels_m,5);
-%b = labeloverlay(pixels_m,class);
-%imshow(b)
+[cluster, center] = imsegkmeans(pixels_og,k);
+b = label2rgb(cluster,im2double(center));
+
 
 
 % My Version
 
-cluster = kMeans(9,pixels)
+[class_og, centroid] = kMeans(k,pixels);
+class = reshape(class_og,412,620);
 
-%b = labeloverlay(pixels,cluster');
-imshow(b)
+b1 = label2rgb(class,im2double(centroid));
+imshow([pixels_og, b, b1])
+
+
+for i=1:6
+    clust(:,i) = kMeans(k,pixels);
+end
+
+ev = evalclusters(double(pixels),clust,"CalinskiHarabasz")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
