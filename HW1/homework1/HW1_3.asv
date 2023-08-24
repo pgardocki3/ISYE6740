@@ -1,0 +1,17 @@
+clear;
+close all;
+
+pixels = double(imread('data/football.bmp'));
+pixels1 = reshape(pixels, 255440,3);
+
+k = 5;
+
+% MATLAB Version
+class = imsegkmeans(pixels,5);
+b = labeloverlay(pixels,class);
+imshow(b)
+
+
+% My Version
+
+cluster = kMeans(9,pixels)
