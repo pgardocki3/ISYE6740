@@ -91,10 +91,7 @@ $\therefore \sigma^2 = \frac{1}{m} \sum_{i=1}^{m} (x_i-\mu)^2$
 
 
 
-
-
 ## 4.
- geodesic distances, neighborhood graphs, and Multi-Dimensional Scaling 
  
 ISOMAP utilizes 3 major concepts that are geodesic distances, neighborhood graphs, and Multi-Dimensional Scaling (MDS).
 
@@ -106,7 +103,7 @@ MDS attempts to take the high dimension geodesic distances and analyze them in a
 
 ## 5.
 
-Outliers greatly impact the PCA performance. Principle Components capture the variance of the data. So if there is an outlier it will affect how much variance the first PC can contain.
+Outliers greatly impact the PCA performance. Principle Components capture the variance of the data. So if there is an outlier it will affect how much variance the first PC can contain, and in turn how well it can represent the original data.
 The example below illustrates this. The first image shows a dataset with a linear trend. The first PC captures over 99% of the data variance. The second image shows the same dataset but with one outlier data point. Now only ~93% of the datas variance is captured in the first PC. This shows the affect outliers can have on the effectiveness of PCA analysis
 
 
@@ -127,13 +124,17 @@ Outlier Explained Variance Ratio: [0.93183656 0.06816344]
 # 2. PCA: Food Consumption
 
 ## a. 
-The data matrix is constructed so that each country is a row and each 'feature' food group is a column.
+The data matrix is constructed so that each country is a row and each 'feature' food group is a column.It seems that the warmer climate countries tend to be grouped in the upper section of the plot, and the colder countries in the bottom portion of the plot. 
 
 ![PCA of country food consumption](pics/PCAa.png){width=50%}
+
+
 ## b.
-The data matrix is constructed so that each food group is a row and each 'feature' country is a column.
+The data matrix is constructed so that each food group is a row and each 'feature' country is a column. This plot has most of the foods grouped on the left portion of the plot with olive oil and garlic separate from the rest. All of the frozen and stable foods are all together and the more 'intense' flavor foods are further away. 
 
 ![PCA of foods country consumption](pics/PCAb.png){width=50%}
+
+
 \newpage
 
 
@@ -143,7 +144,7 @@ The data matrix is constructed so that each food group is a row and each 'featur
 ![Nearest Neighbor Grapg](pics/adjM.png){width=50%}
 
 ## b.
-Looking at the scatter plot below, there seems to be a trend along both axis. The x-axis seems to track head positions turned left or right and the y-axis seems to track the heads tilt, either up or down. The images in the center of the data seem to be facing straight forward. This seems to track the papers findings as well. 
+Looking at the scatter plot below, there seems to be a trend along both axis. The x-axis seems to track head positions turned left or right and the y-axis seems to track the heads tilt, either up or down. The images in the center of the data seem to be facing straight forward. This seems to track the papers findings as well, where each portion of the plot corresponds to a facial orientation and it tracks smoothly along the entire plot. 
 
 ![ISOMAP](pics/isomap.png){width=50%}
 
@@ -165,7 +166,7 @@ ISOMAP shows a much more meaningful and useful projection of the faces. This may
 # 4. Eigenfaces and Facial Recognition
 
 ## a. 
-There 
+It seems that the first few eignefaces capture the subjects with a neutral expression. Then the final eignefaces seem to capture different facial expressions such as smiling, or eyes closed. 
 
 
 
