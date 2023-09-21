@@ -200,6 +200,19 @@ My face algorithm does not seem to work all the time. One way to improve this is
 
 # 5. To subtract or not to subtract
 
+$C=\frac{1}{m}\sum (x^i-\mu)(x^i-\mu)^T \\$
+$\tilde{C} = \frac{1}{m} \sum x^i(x^i)^T\\$
+$C=\frac{1}{m} \sum(x^i(x^i)^T - x^i \mu^T - \mu (x^i)^T + \mu \mu^T)= \tilde{C}- \frac{1}{m} \sum x^i \mu^T \sum \mu (x^i)^T \\$
+
+$\frac{1}{m} \sum x^i \mu^T = \frac{1}{m}\sum \mu (x^i)^T = \mu\mu^T \\$
+
+$\therefore C = \tilde{C}-2\mu \mu^T \\$
+
+$Cw_i=\lambda w_i \rightarrow (\tilde{C}-2\mu \mu^T)w_i= \lambda w_i \rightarrow \tilde{C}w_i = w_i(\lambda+2\mu \mu^T) \\$
+
+$\therefore w_i \ne\tilde{w_i}$
+
+PCA is possible without mean centering the covariance matrix but this will lead to the first PC to be biased towards the mean of the data. Unless the mean is zero, subtracting the mean will lead to different $w_i$.
 
 
 
