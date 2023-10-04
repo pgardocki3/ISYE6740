@@ -46,16 +46,65 @@ $\tau = \frac{p(x^i|z^i=k)(p(z^i=k)}{\sum p(z^i=k,x^i)}=\frac{\pi_k \mathcal{N}(
 
 ## 2.a
 
+![](pics/acc.png){width=50%}
+
+![](pics/amyg.png){width=50%}
+
 ## 2.b
+
+![](pics/2dkde.png){width=50%}
+
 
 ## 2.c
 
+![](pics/2dcontour.png){width=50%}
+
+The data distribution is unimodal with a few outliers.
+
+To determine if the two variables are independent, both Spearmans and Pearsons correlations were calculated and found to be -0.101 and -0.128 respectively. This shows that they are very likely to be independent but may have a slight relationship.
+
+Spearmans correlation: -0.101
+
+Pearsons correlation: -0.128
+
+
 ## 2.d
+
+![](pics/kde2.png){width=50%}
+![](pics/kde3.png){width=50%}
+![](pics/kde4.png){width=50%}
+![](pics/kde5.png){width=50%}
+
+```{r Q2 a, echo=FALSE}
+#df = data.frame()
+library(kableExtra)
+library(knitr)
+
+#out = c(0.94, 32,32,32,32)
+#df$test  = out
+
+df=data.frame(Region=c('acc','amygdala'),
+              'c2'=c(-0.0148,0.0191),
+              'c3'=c(0.0017,0.0006),
+              'c4'=c(0.0013,-0.047),
+              'c5'=c(0.0081,-0.0057))
+
+
+kable(df,"latex",align="c", caption="Conditional Sample Mean",label="Q3",escape = FALSE)%>%
+    kable_styling(latex_options = "hold_position")
+
+```
+
+As the political orientation shifts from 2 to 5, or conservative to liberal, the mean ACC region volume increases, while the amygdala region volume decreases.
+
 
 ## 2.e
 
-
-
+![](pics/2d2.png){width=50%}
+![](pics/2d3.png){width=50%}
+![](pics/2d4.png){width=50%}
+![](pics/2d5.png){width=50%}
+It is harder to infer a relationship between brain structure and political orientation based on the 2D KDE. 
 
 # 3. Implementing EM for MNIST datset
 
