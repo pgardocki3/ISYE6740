@@ -56,3 +56,5 @@ $l(\theta)$ is concave because the hessian is less than 0. There is a global min
 
 
 
+
+
