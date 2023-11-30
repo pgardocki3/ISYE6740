@@ -30,6 +30,8 @@ There are various ways to limit over fit in CART models. This usually occurs whe
 
 ## a)
 
+![](pics/hw.png){}
+
 Iteration 1:
 $D_1(i)= \frac{1}{m}=\frac{1}{8}$ for all i.
 
@@ -89,32 +91,64 @@ t & $\epsilon_t$ & $\alpha_t$ & $Z_t$ & $D_t(1)$ & $D_t(2)$ & $D_t(3)$ & $D_t(4)
 ## a)
 
 ![](pics/cart.png){}
+
+
 ## b)
 The test error of Random Forest Classifier:  3.474%
 The test error of Decision Tree Classifier:  6.623%
 
 ![](pics/error.png){}
+
+
 ## c)
+
+![](pics/output.png){}
+
+
+Both OOB and test error have a similar increasing trend with number of features and OOB error always having the greater error. 
 
 ## d)
 
-46.7%
+By tuning the $\gamma$ hyper parameter, the total misclassification error rate reached 37.71%
 
 # 4. Locally weighted linear regression 
 
 ## a)
 
+$\hat{\beta}=argmin(||X\beta-y||+\lambda||\beta||)$
+
+$\hat{\beta} = max_{\beta} \  \sum log(\frac{1}{\sqrt{2\pi\sigma^2}^n}exp(\frac{-(y-X^T\beta)^2}{2\sigma^2}))$
+
+$\hat{\beta} = max_{\beta} \ \sum log(exp(\frac{-(y-X^T\beta)^2}{2\sigma^2}))= argmin \ \sum \frac{(y-X^T\beta)^2}{2\sigma^2} \rightarrow (X\beta-y)^T(X\beta-y)+\lambda||\beta||=argmin(||X\beta-y||+\lambda||\beta||)$
+
 ## b)
+$\frac{d}{d\beta} (X\beta-y)^T(X\beta-y)+\lambda \beta^TB=0$
+
+$2X^TX\beta -2X^Ty+2\lambda \beta=0$
+
+$X^TX\beta + \lambda\beta=X^Ty$
+
+$\hat{\beta}= (X^TX+\lambda I)^{-1}X^Ty$
 
 ## c)
+$\mathbb{E}(X^T\hat{\beta})-X^T\beta=\mathbb{E}(X^T(X^TX+\lambda I)^{-1}X^Ty)-X^T\beta$
+
+$\mathbb{E}(X^T(X^TX+\lambda I)^{-1}X^TX\beta)-X^T\beta=\mathbb{E}(X^T(X^TX+\lambda I)^{-1}(X^TX+\lambda I-\lambda I)\beta)-X^T\beta$
+
+$\mathbb{E}(X^T(I-\lambda(X^TX+\lambda I)^{-1})\beta)-X^T\beta=X^T(\beta-\beta \lambda (X^TX+\lambda I)^{-1})-X^T\beta$
+
+$\therefore \ Bias: \ -X^T\beta\lambda(X^T\lambda + \lambda I)^{-1}$
 
 ## d)
+$Var[\hat{\beta}]=Var[(X^TX+\lambda I)^{-1} X^T y]=(X^TX+\lambda I)^{-1}X^T(X^TX+\lambda I)^{-1}X^TVar[y]$
+
 
 ## e)
-
+![](pics/mse.png){}
 ## f)
+Changing the test sample to x = 1.5 did not change the results of the MSE vs lambda plot.
 
-
+![](pics/mse.png){}
 
 
 
