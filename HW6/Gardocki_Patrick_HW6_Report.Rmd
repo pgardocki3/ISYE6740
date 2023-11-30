@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Data-fit complexity is controlled in a regression tree by a method called pruning. This method grows the tree to the max depth and then removes nodes that do not contribute to the accuracy of the tree. 
 
 Limiting the max depth of the tree is one hyper parameter that can be tuned to limit data over/under fitting. The max depth of a tree is reached when each node contains a single value.  For various tree depths, observing where training accuracy starts to increase and validation accuracy starts to decrease can help give an idea of the optimal tree depth. Another hyperparamter that can be tuned is the minimum number of samples required to be in a node. Adjusting this can simplify or complicate the model.
-
+ 
 ## b)
 During training, each tree is trained on a bootstrapped sample. Not all data points are in the sample. The data points left out are the out of bag observations. Then each tree is evaluated on the left out data points. The OOB error is calculated by comparing the predictions on the OOB predictions to the actual outcomes. Observing when the OOB error stabilizes, helps determine the optimal number of trees. Since the OOB data points are within the training data set, and the OOB error is utilized during training, it is a training error. 
 
@@ -88,12 +88,17 @@ t & $\epsilon_t$ & $\alpha_t$ & $Z_t$ & $D_t(1)$ & $D_t(2)$ & $D_t(3)$ & $D_t(4)
 
 ## a)
 
+![](pics/cart.png){}
 ## b)
+The test error of Random Forest Classifier:  3.474%
+The test error of Decision Tree Classifier:  6.623%
 
+![](pics/error.png){}
 ## c)
 
 ## d)
 
+46.7%
 
 # 4. Locally weighted linear regression 
 
